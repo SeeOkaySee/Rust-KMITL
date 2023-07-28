@@ -1,8 +1,9 @@
-/2.hello
-/3.integration test
-/4.testing
-/echor
-/echor_2
-/greet
-/hello
-/hello.rs
+2.hello/
+3.integration test/
+4.testing/
+echor/
+echor_2/
+greet/
+hello/
+hello.rs
+**/target/
