@@ -9,7 +9,7 @@ fn main() {
     let n: i32 = n_args.parse().unwrap();
 
     for i in 0..n {
-        for j in 0..i + 1 {
+        for _j in 0..i + 1 {
             print!("*");
         }
         println!("");
