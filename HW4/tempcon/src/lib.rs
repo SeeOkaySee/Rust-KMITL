@@ -6,6 +6,17 @@ fn _fahr_to_cel_v(v: &mut [f32]) -> Vec<f32> {
     v.to_vec()
 }
 
+fn f2c(array: &[f32]) -> Vec<f32> {
+    let mut iter = array.iter();
+    let mut result = Vec::new();
+
+    while let Some(fahr) = iter.next() {
+        let mut cel = (fahr-32.) * (5./9.);
+        result.push(cel)
+    }
+    result
+}
+
 fn _fahr_to_cel_recur(v: &mut [f32]) -> Vec<f32> {
     if v.is_empty() {
         //returns new vector if there's no slice
@@ -28,4 +39,9 @@ fn test_fahr_to_cel_recur() {
     assert_eq!(_fahr_to_cel_recur(&mut[300.,250.,200.,150.,100.]), [148.88889, 121.111115, 93.333336, 65.55556, 37.77778]);
     assert_eq!(_fahr_to_cel_recur(&mut[32.,64.,128.]), [0.0, 17.777779, 53.333332]);
     assert_eq!(_fahr_to_cel_recur(&mut[0.,1.,2.,3.,4.,5.,1000.]), [-17.777779, -17.222221, -16.666666, -16.11111, -15.555555, -15.0, 537.7778]);
+}
+
+#[test]
+fn test_f2c() {
+    assert_eq!(f2c(&[300.,250.,200.,150.,100.]), [148.8889, 121.111115, 93.333336, 65.55556, 37.77778])
 }

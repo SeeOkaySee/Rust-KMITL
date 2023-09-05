@@ -25,7 +25,7 @@ fn main() {
     }
 
     for i in 0..n {
-        for _j in 0..m - i - 1 {
+        for _j in 0..n - i-1 {
             print!("*");
         }
         println!("");

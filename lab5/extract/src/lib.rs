@@ -8,6 +8,34 @@ fn extract_non_negatives(v: &[f32]) -> Vec<f32> {
     result
 }
 
+fn extract_non_negatives_iter(arr: &[f32]) -> Vec<f32> {
+    let mut result = Vec::new();
+    let mut iter = arr.iter();
+
+    while let Some(num) = iter.next() {
+        if num >= &0. {
+            result.push(*num)
+        }
+    }
+    result
+}
+
+fn extract_non_negatives_r(arr: &[f32]) -> Vec<f32> {
+    let mut result = Vec::new();
+    let mut num = 0.;
+
+    if arr.is_empty() {
+        return Vec::new();
+    }
+    if arr[0] >= 0. {
+        result.push(arr[0]);
+    }
+    
+    let mut rest_result = extract_non_negatives_r(&arr[1..]);
+    result.append(&mut rest_result);
+    result
+}
+
 fn extract_negatives(v: &[f32]) -> Vec<f32> {
     let mut n_result = Vec::new();
     for i in v {
@@ -48,6 +76,26 @@ extract_non_negatives(&[0.8, -5.1, 1.6, -6.5, 10.5]),
 [0.8, 1.6, 10.5]
 );
 assert_eq!(extract_non_negatives(&[7.8, 98234.01, -5012.77, -5.4, 2.0]), &[7.8, 98234.01, 2.0]);
+}
+
+#[test]
+fn test_extract_non_negatives_iter() {
+assert_eq!(extract_non_negatives_iter(&[]), &[]);
+assert_eq!(
+extract_non_negatives_iter(&[0.8, -5.1, 1.6, -6.5, 10.5]),
+[0.8, 1.6, 10.5]
+);
+assert_eq!(extract_non_negatives_iter(&[7.8, 98234.01, -5012.77, -5.4, 2.0]), &[7.8, 98234.01, 2.0]);
+}
+
+#[test]
+fn test_extract_non_negatives_r() {
+assert_eq!(extract_non_negatives_r(&[]), &[]);
+assert_eq!(
+extract_non_negatives_r(&[0.8, -5.1, 1.6, -6.5, 10.5]),
+[0.8, 1.6, 10.5]
+);
+assert_eq!(extract_non_negatives_r(&[7.8, 98234.01, -5012.77, -5.4, 2.0]), &[7.8, 98234.01, 2.0]);
 }
 
 #[test]

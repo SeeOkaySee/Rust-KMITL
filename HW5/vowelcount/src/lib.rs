@@ -1,11 +1,10 @@
-fn count_vowels(n: &str) -> usize {
-    let vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+fn count_vowels(word: &str) -> usize {
     let mut count = 0;
-    let word = n.chars();
+    let vowels = ['a','e','i','o','u','A','E','I','O','U'];
     
-    for i in word {
-        if vowels.contains(&i) {
-            count += 1;
+    for letters in word.chars() {
+        if vowels.contains(&letters) {
+            count += 1
         }
     }
     count
