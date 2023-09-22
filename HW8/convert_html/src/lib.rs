@@ -84,8 +84,9 @@ fn to_cartesian(pt_list: Vec<PolarPoint>) -> Vec<Point> {
     let mut result = Vec::new();
 
     for point in pt_list {
-        let x = point.r * point.t.cos();
-        let y = point.r * point.t.sin();
+        let angle = (point.t * 3.14)/180.0;
+        let x = point.r * angle.cos();
+        let y = point.r * angle.sin();
 
         result.push(Point{x:x, y:y})
     }
@@ -108,7 +109,7 @@ fn load_pairs_c<R: Read>(rdr: R) -> Vec<Point> {
             out_list.push(Point{x:v1,y:v2});
         }
     }
-    out_list
+    out_list        
 }
 
 fn load_pairs_p<R: Read>(rdr: R) -> Vec<PolarPoint> {
@@ -174,7 +175,7 @@ pub fn run(config: Config) -> MyResult<()> {
                     let path = env::current_dir();
                     let writer = WriterBuilder::new().delimiter(b',').from_writer(file);
                     save_points_p(writer, polar)?;
-                    println!("Points saved to {}/output.html",path?.display());
+                    println!("Points saved to {}/output_polar.html",path?.display());
                 }
                 else if config.cartesian {
                     let pointp = load_pairs_p(points);
@@ -183,7 +184,7 @@ pub fn run(config: Config) -> MyResult<()> {
                     let path = env::current_dir();
                     let writer = WriterBuilder::new().delimiter(b',').from_writer(file);
                     save_points_c(writer, cartesian)?;
-                    println!("Points saved to {}/output.html",path?.display());
+                    println!("Points saved to {}/output_cartesian.html",path?.display());
                 }
             }
         }

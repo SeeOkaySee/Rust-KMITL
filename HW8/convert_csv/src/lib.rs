@@ -84,8 +84,9 @@ fn to_cartesian(pt_list: Vec<PolarPoint>) -> Vec<Point> {
     let mut result = Vec::new();
 
     for point in pt_list {
-        let x = point.r * point.t.cos();
-        let y = point.r * point.t.sin();
+        let angle = (point.t * 3.14)/180.0;
+        let x = point.r * angle.cos();
+        let y = point.r * angle.sin();
 
         result.push(Point{x:x, y:y})
     }
@@ -167,18 +168,18 @@ pub fn run(config: Config) -> MyResult<()> {
                     let polar = to_polar(pointc);
                     let file = File::create("output_polar.csv")?;
                     let path = env::current_dir();
-                    let mut writer = WriterBuilder::new().delimiter(b',').from_writer(file);
+                    let writer = WriterBuilder::new().delimiter(b',').from_writer(file);
                     save_points_p(writer, polar)?;
-                    println!("Points saved to {}/output.csv",path?.display());
+                    println!("Points saved to {}/output_polar.csv",path?.display());
                 }
                 else if config.cartesian {
                     let pointp = load_pairs_p(points);
                     let cartesian = to_cartesian(pointp);
                     let file = File::create("output_cartesian.csv")?;
                     let path = env::current_dir();
-                    let mut writer = WriterBuilder::new().delimiter(b',').from_writer(file);
+                    let writer = WriterBuilder::new().delimiter(b',').from_writer(file);
                     save_points_c(writer, cartesian)?;
-                    println!("Points saved to {}/output.csv",path?.display());
+                    println!("Points saved to {}/output_cartesian.csv",path?.display());
                 }
             }
         }
