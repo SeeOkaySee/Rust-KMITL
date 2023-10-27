@@ -94,4 +94,3 @@ fn main() {
     println!("t3.value(): {}", t3.value());  
     println!("t4.value(): {}", t4.value()); 
 }
-
